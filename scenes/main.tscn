@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://bigyhikt0g7y7"]
+
+[ext_resource type="Script" uid="uid://bfwsuf3jhexg" path="res://scenes/character_body_2d.gd" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://d31gyw83qqfa6" path="res://scenes/enemy.gd" id="1_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://h2xkji5wpx74" path="res://assets/Wizard Simple Attack Animation.png" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://d0bs4nw2m26xj" path="res://assets/Sprite-0001.png" id="1_sugp2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t5xhs"]
+radius = 8.0
+height = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ai34y"]
+radius = 8.0
+height = 31.45
+
+[node name="Main" type="Node2D" unique_id=685240265]
+
+[node name="Enemy" type="CharacterBody2D" parent="." unique_id=715404741 node_paths=PackedStringArray("player")]
+position = Vector2(90, 106)
+script = ExtResource("1_jyhfs")
+player = NodePath("../Player")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy" unique_id=1424261721]
+texture = ExtResource("1_sugp2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy" unique_id=1748036877]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_t5xhs")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=353307152]
+position = Vector2(35.395, 3.275)
+motion_mode = 1
+script = ExtResource("1_0wfyh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1582169414]
+texture = ExtResource("1_o5qli")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1568890382]
+position = Vector2(-0.39500046, 6.725)
+shape = SubResource("CapsuleShape2D_ai34y")
