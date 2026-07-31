@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var speed = 110
+var speed = 75
 
 @export var player: Node2D #drag player into this slot in the inspector
 
@@ -9,9 +9,13 @@ func _physics_process(delta: float) -> void:
 		#calculate direction to player
 		var direction = (player.global_position - global_position).normalized()
 		
-		#move the enemy
-		velocity = direction * speed
-		move_and_slide()
+		#if we are not close enough to the player lets keep moving
+		if player.global_position.distance_to(position) > 50:
+			#move the enemy
+			velocity = direction * speed
+			move_and_slide()
+		else:	#stop moving and exit the function
+			return
 		
 		#optional flip sprite
 		if direction.x != 0:
