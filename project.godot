@@ -53,6 +53,13 @@ esc={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemies "
+2d_physics/layer_3="PlayerHurtboxes"
+2d_physics/layer_4="EnemyHitboxes"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
