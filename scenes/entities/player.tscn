@@ -2,25 +2,26 @@
 
 [ext_resource type="Script" uid="uid://bfwsuf3jhexg" path="res://scripts/player.gd" id="1_08t41"]
 [ext_resource type="Texture2D" uid="uid://bygyejv7rfyd4" path="res://assets/Knight.png" id="2_1ie0h"]
-[ext_resource type="PackedScene" uid="uid://cuxdmgbxh55j6" path="res://scenes/hurtbox.tscn" id="3_5u6hq"]
+[ext_resource type="PackedScene" uid="uid://cuxdmgbxh55j6" path="res://scenes/entities/hurtbox.tscn" id="3_5u6hq"]
 [ext_resource type="Script" uid="uid://b5evnqv1i2b0t" path="res://scripts/health_component.gd" id="3_42nxq"]
+[ext_resource type="Script" uid="uid://dyb4ugh1deiwu" path="res://scripts/hitbox.gd" id="3_d4qa6"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5u6hq"]
 atlas = ExtResource("2_1ie0h")
-region = Rect2(0, 0, 24, 48)
+region = Rect2(0, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4qa6"]
 atlas = ExtResource("2_1ie0h")
-region = Rect2(24, 0, 24, 48)
+region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ai34y"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g2els")
+"texture": SubResource("AtlasTexture_5u6hq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qhqgy")
+"texture": SubResource("AtlasTexture_d4qa6")
 }],
 "loop": 1,
 "name": &"idle",
@@ -33,6 +34,9 @@ height = 12.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ai34y"]
 height = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ai34y"]
+size = Vector2(52, 30)
 
 [node name="Player" type="CharacterBody2D" unique_id=2032196196 groups=["player"]]
 script = ExtResource("1_08t41")
@@ -48,6 +52,11 @@ frame_progress = 0.7123757
 position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_g2els")
 
+[node name="HealthComponent" type="Node" parent="." unique_id=1375355275]
+script = ExtResource("3_42nxq")
+max_health = 100
+metadata/_custom_type_script = "uid://b5evnqv1i2b0t"
+
 [node name="Hurtbox" parent="." unique_id=1912894453 node_paths=PackedStringArray("health_component") instance=ExtResource("3_5u6hq")]
 collision_mask = 0
 health_component = NodePath("../HealthComponent")
@@ -56,7 +65,16 @@ health_component = NodePath("../HealthComponent")
 position = Vector2(0, -9)
 shape = SubResource("CapsuleShape2D_ai34y")
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1375355275]
-script = ExtResource("3_42nxq")
-max_health = 100
-metadata/_custom_type_script = "uid://b5evnqv1i2b0t"
+[node name="HitboxPivot" type="Node2D" parent="." unique_id=616160861]
+position = Vector2(0, -10)
+
+[node name="SwordHitbox" type="Area2D" parent="HitboxPivot" unique_id=1749034266]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("3_d4qa6")
+damage = 5
+metadata/_custom_type_script = "uid://dyb4ugh1deiwu"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxPivot/SwordHitbox" unique_id=1191569895]
+position = Vector2(0, 23)
+shape = SubResource("RectangleShape2D_ai34y")

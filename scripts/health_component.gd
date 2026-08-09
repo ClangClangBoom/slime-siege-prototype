@@ -16,3 +16,9 @@ func apply_damage(damage: int) -> void:
 	
 	if current_health <= 0:
 		died.emit()
+
+func die() -> void:
+	print("Entity died")
+	died.emit()
+	
+	get_parent().queue_free()

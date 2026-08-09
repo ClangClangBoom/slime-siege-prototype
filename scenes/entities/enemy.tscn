@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d31gyw83qqfa6" path="res://scripts/enemy.gd" id="1_67neu"]
 [ext_resource type="Texture2D" uid="uid://bvcav2ihu787n" path="res://assets/Slime01.png" id="2_ktqfp"]
-[ext_resource type="PackedScene" uid="uid://tnem6w4amrnn" path="res://scenes/hitbox.tscn" id="3_jr1g6"]
-[ext_resource type="PackedScene" uid="uid://cuxdmgbxh55j6" path="res://scenes/hurtbox.tscn" id="4_hlb8m"]
+[ext_resource type="PackedScene" uid="uid://tnem6w4amrnn" path="res://scenes/entities/hitbox.tscn" id="3_jr1g6"]
+[ext_resource type="PackedScene" uid="uid://cuxdmgbxh55j6" path="res://scenes/entities/hurtbox.tscn" id="4_hlb8m"]
 [ext_resource type="Script" uid="uid://b5evnqv1i2b0t" path="res://scripts/health_component.gd" id="5_4fpkd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t5xhs"]
@@ -27,7 +27,6 @@ shape = SubResource("CapsuleShape2D_t5xhs")
 [node name="Hitbox" parent="." unique_id=1122523899 instance=ExtResource("3_jr1g6")]
 
 [node name="Hurtbox" parent="." unique_id=1912894453 node_paths=PackedStringArray("health_component") instance=ExtResource("4_hlb8m")]
-visible = false
 position = Vector2(0, 8)
 collision_layer = 8
 collision_mask = 0
