@@ -5,6 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://cuxdmgbxh55j6" path="res://scenes/entities/hurtbox.tscn" id="3_5u6hq"]
 [ext_resource type="Script" uid="uid://b5evnqv1i2b0t" path="res://scripts/health_component.gd" id="3_42nxq"]
 [ext_resource type="Script" uid="uid://dyb4ugh1deiwu" path="res://scripts/hitbox.gd" id="3_d4qa6"]
+[ext_resource type="Script" uid="uid://rlms2dx7473c" path="res://scripts/States/StateMachine.gd" id="3_ss7kx"]
+[ext_resource type="Script" uid="uid://4o7qbeigbvyw" path="res://scripts/States/Idle.gd" id="4_dnykm"]
+[ext_resource type="Script" uid="uid://d2guvinceohwq" path="res://scripts/States/Run.gd" id="5_c5rqy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5u6hq"]
 atlas = ExtResource("2_1ie0h")
@@ -51,6 +54,17 @@ frame_progress = 0.7123757
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1940641434]
 position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_g2els")
+
+[node name="StateMachine" type="Node" parent="." unique_id=2140072158 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_ss7kx")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1331205386]
+script = ExtResource("4_dnykm")
+
+[node name="Run" type="Node" parent="StateMachine" unique_id=1012777687]
+script = ExtResource("5_c5rqy")
+speed = 120.0
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1375355275]
 script = ExtResource("3_42nxq")

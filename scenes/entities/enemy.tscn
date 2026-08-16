@@ -1,30 +1,107 @@
 [gd_scene format=3 uid="uid://da3njvhh05so"]
 
 [ext_resource type="Script" uid="uid://d31gyw83qqfa6" path="res://scripts/enemy.gd" id="1_67neu"]
-[ext_resource type="Texture2D" uid="uid://bvcav2ihu787n" path="res://assets/Slime01.png" id="2_ktqfp"]
+[ext_resource type="Texture2D" uid="uid://bg0b58hcjtl7b" path="res://assets/Sprite-0001-Sheet.png" id="2_jr1g6"]
 [ext_resource type="PackedScene" uid="uid://tnem6w4amrnn" path="res://scenes/entities/hitbox.tscn" id="3_jr1g6"]
 [ext_resource type="PackedScene" uid="uid://cuxdmgbxh55j6" path="res://scenes/entities/hurtbox.tscn" id="4_hlb8m"]
 [ext_resource type="Script" uid="uid://b5evnqv1i2b0t" path="res://scripts/health_component.gd" id="5_4fpkd"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_jr1g6"]
+atlas = ExtResource("2_jr1g6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7bdk"]
+atlas = ExtResource("2_jr1g6")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kl1a"]
+atlas = ExtResource("2_jr1g6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlb8m"]
+atlas = ExtResource("2_jr1g6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fpkd"]
+atlas = ExtResource("2_jr1g6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqw0c"]
+atlas = ExtResource("2_jr1g6")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onntj"]
+atlas = ExtResource("2_jr1g6")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ai34y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jr1g6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7bdk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jr1g6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kl1a")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hlb8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fpkd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqw0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onntj")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 10.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t5xhs"]
-radius = 5.0
-height = 10.0
+radius = 7.0
+height = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ai34y"]
+size = Vector2(10, 15)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jr1g6"]
-radius = 6.0
-height = 14.0
+radius = 8.0
+height = 16.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1969994283]
 script = ExtResource("1_67neu")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=265844437]
-texture = ExtResource("2_ktqfp")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=295423318]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_ai34y")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.9447535
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1821653115]
-position = Vector2(0, 2)
+position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_t5xhs")
 
 [node name="Hitbox" parent="." unique_id=1122523899 instance=ExtResource("3_jr1g6")]
+position = Vector2(0, 8)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox" unique_id=2026414089]
+shape = SubResource("RectangleShape2D_ai34y")
+disabled = true
 
 [node name="Hurtbox" parent="." unique_id=1912894453 node_paths=PackedStringArray("health_component") instance=ExtResource("4_hlb8m")]
 position = Vector2(0, 8)
@@ -33,7 +110,7 @@ collision_mask = 0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=935807065]
-position = Vector2(0, -6)
+position = Vector2(0, -14)
 shape = SubResource("CapsuleShape2D_jr1g6")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=68536272]

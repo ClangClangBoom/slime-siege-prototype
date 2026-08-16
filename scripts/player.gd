@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var speed: float = 120.0
-
+@onready var state_machine: StateMachine = $StateMachine
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox_pivot: Node2D = $HitboxPivot
 @onready var sword_collision: CollisionShape2D = $HitboxPivot/SwordHitbox/CollisionShape2D
 
@@ -10,6 +10,8 @@ var last_direction: Vector2 = Vector2.DOWN
 func _ready() -> void:
 	#start with the sword inactive so it doesn't hit things constantly
 	sword_collision.disabled = true
+	
+	state_machine.init(self, animated_sprite)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("player_basic_attack"):
@@ -34,17 +36,8 @@ func swing_sword() -> void:
 	await get_tree().create_timer(0.1).timeout
 	sword_collision.disabled = true
 
+func _process(delta: float) -> void:
+	state_machine.update(delta)
+	
 func _physics_process(delta: float) -> void:
-	# Get the input direction and handle the movement/deceleration.
-	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	
-	velocity = direction * speed
-	move_and_slide()
-	
-	#if the player is actually moving update last known direction
-	if direction != Vector2.ZERO:
-		last_direction = direction
-	
-	#optional flip sprite
-	if direction.x != 0:
-		$AnimatedSprite2D.flip_h = direction.x > 0
+	state_machine.physics_update(delta)

@@ -5,7 +5,7 @@ var speed = 75
 var player: Node2D # or CharacterBody2D / CharacterBody3D
 
 @onready var health_component: Node = $HealthComponent
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
 
 func _ready():
@@ -19,7 +19,7 @@ func _on_died() -> void:
 	is_dead = true
 	
 	#turn off visuals and physics
-	sprite.visible = false
+	animated_sprite.visible = false
 	collision.set_deferred("disabled", true)
 	
 	#respawning logic?
@@ -31,7 +31,7 @@ func respawn() -> void:
 	health_component.current_health = health_component.max_health
 
 	#bring visuals and physics back
-	sprite.visible = true
+	animated_sprite.visible = true
 	collision.set_deferred("disabled", false)
 	is_dead = false
 	
@@ -45,14 +45,18 @@ func _physics_process(delta: float) -> void:
 	if is_instance_valid(player):
 		#calculate direction to player
 		var direction = (player.global_position - global_position).normalized()
+
 		#if we are not close enough to the player lets keep moving
-		if player.global_position.distance_to(position) > 50:
+		if player.global_position.distance_to(position) > 40:
+			#play our run animation
+			animated_sprite.play("walk")
 			#move the enemy
 			velocity = direction * speed
 			move_and_slide()
 		else:	#stop moving and exit the function
+			animated_sprite.play("idle")
 			return
 		
 		#flip sprite horizontally
 		if direction.x != 0:
-			$Sprite2D.flip_h = direction.x < 0
+			$AnimatedSprite2D.flip_h = direction.x < 0
