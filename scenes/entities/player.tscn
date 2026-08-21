@@ -9,6 +9,30 @@
 [ext_resource type="Script" uid="uid://4o7qbeigbvyw" path="res://scripts/States/Idle.gd" id="4_dnykm"]
 [ext_resource type="Script" uid="uid://d2guvinceohwq" path="res://scripts/States/Run.gd" id="5_c5rqy"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnykm"]
+atlas = ExtResource("2_1ie0h")
+region = Rect2(624, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5rqy"]
+atlas = ExtResource("2_1ie0h")
+region = Rect2(672, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6tgf"]
+atlas = ExtResource("2_1ie0h")
+region = Rect2(720, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73kkf"]
+atlas = ExtResource("2_1ie0h")
+region = Rect2(480, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n5sgd"]
+atlas = ExtResource("2_1ie0h")
+region = Rect2(528, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ki56"]
+atlas = ExtResource("2_1ie0h")
+region = Rect2(576, 0, 48, 48)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_5u6hq"]
 atlas = ExtResource("2_1ie0h")
 region = Rect2(0, 0, 48, 48)
@@ -19,6 +43,34 @@ region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ai34y"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnykm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5rqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6tgf")
+}],
+"loop": 1,
+"name": &"attack_left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73kkf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n5sgd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ki56")
+}],
+"loop": 1,
+"name": &"attack_right",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5u6hq")
@@ -47,9 +99,9 @@ script = ExtResource("1_08t41")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1026525394]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_ai34y")
-animation = &"idle"
+animation = &"attack_left"
 autoplay = "idle"
-frame_progress = 0.7123757
+frame_progress = 0.028509868
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1940641434]
 position = Vector2(0, -6)
@@ -72,6 +124,7 @@ max_health = 100
 metadata/_custom_type_script = "uid://b5evnqv1i2b0t"
 
 [node name="Hurtbox" parent="." unique_id=1912894453 node_paths=PackedStringArray("health_component") instance=ExtResource("3_5u6hq")]
+visible = false
 collision_mask = 0
 health_component = NodePath("../HealthComponent")
 
@@ -80,6 +133,7 @@ position = Vector2(0, -9)
 shape = SubResource("CapsuleShape2D_ai34y")
 
 [node name="HitboxPivot" type="Node2D" parent="." unique_id=616160861]
+visible = false
 position = Vector2(0, -10)
 
 [node name="SwordHitbox" type="Area2D" parent="HitboxPivot" unique_id=1749034266]
